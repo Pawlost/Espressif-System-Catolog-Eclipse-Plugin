@@ -53,3 +53,4 @@ local.properties
 
 #JetBrains
 .idea/
+/bin/
