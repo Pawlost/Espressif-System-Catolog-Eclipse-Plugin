@@ -5,29 +5,29 @@
    <extension
          point="org.eclipse.ui.commands">
       <category
-            id="org.plugin.espressif.market.commands.category"
-            name="Espressif Market Category">
+            id="org.plugin.espressif.catalog.commands.category"
+            name="Espressif Catalog Category">
       </category>
       <command
-            categoryId="org.plugin.espressif.market.commands.category"
-            name="Espressif Catalog"
-            id="org.plugin.espressif.market.commands.catalogCommand">
+            categoryId="org.plugin.espressif.catalog.commands.category"
+            name="Browse Espressif Catalog"
+            id="org.plugin.espressif.catalog.commands.browseCommand">
       </command>
       <command
-              categoryId="org.plugin.espressif.market.commands.category"
-              name="Espressif Browser"
-              id="org.plugin.espressif.market.commands.browserCommand">
+              categoryId="org.plugin.espressif.catalog.commands.category"
+              name="Add Espressif Item"
+              id="org.plugin.espressif.catalog.commands.addItemCommand">
       </command>
    </extension>
    <extension
          point="org.eclipse.ui.handlers">
       <handler
-            class="org.plugin.espressif.market.handlers.CatalogHandler"
-            commandId="org.plugin.espressif.market.commands.catalogCommand">
+            class="org.plugin.espressif.catalog.handlers.CatalogHandler"
+            commandId="org.plugin.espressif.catalog.commands.browseCommand">
       </handler>
       <handler
-              class="org.plugin.espressif.market.handlers.BrowserHandler"
-              commandId="org.plugin.espressif.market.commands.browserCommand">
+              class="org.plugin.espressif.catalog.handlers.AddItemHandler"
+              commandId="org.plugin.espressif.catalog.commands.addItemCommand">
       </handler>
    </extension>
    <extension
@@ -35,18 +35,18 @@
       <menuContribution
             locationURI="menu:org.eclipse.ui.main.menu?after=additions">
          <menu
-               id="org.plugin.espressif.market.menus.marketeMenu"
-               label="Espressif Market Menu"
+               id="org.plugin.espressif.catalog.menus.catalogMenu"
+               label="Espressif Catalog Menu"
                mnemonic="M">
             <command
-                  commandId="org.plugin.espressif.market.commands.catalogCommand"
-                  id="org.plugin.espressif.market.menus.catalogCommand"
-                  mnemonic="S">
+                    commandId="org.plugin.espressif.catalog.commands.addItemCommand"
+                    id="org.plugin.espressif.catalog.menus.addItemCommand"
+                    mnemonic="S">
             </command>
             <command
-                    commandId="org.plugin.espressif.market.commands.browserCommand"
-                    id="org.plugin.espressif.market.menus.browserCommand"
-                    mnemonic="S">
+                  commandId="org.plugin.espressif.catalog.commands.browseCommand"
+                  id="org.plugin.espressif.catalog.menus.browseCommand"
+                  mnemonic="S">
             </command>
          </menu>
       </menuContribution>

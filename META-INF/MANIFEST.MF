@@ -1,8 +1,8 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
-Bundle-Name: Market
-Bundle-SymbolicName: org.plugin.espressif.market;singleton:=true
+Bundle-Name: Catalog
+Bundle-SymbolicName: org.plugin.espressif.catalog;singleton:=true
 Bundle-Version: 1.0.0.qualifier
 Require-Bundle: org.eclipse.ui
-Automatic-Module-Name: org.plugin.espressif.market
+Automatic-Module-Name: org.plugin.espressif.catalog
 Bundle-RequiredExecutionEnvironment: JavaSE-14

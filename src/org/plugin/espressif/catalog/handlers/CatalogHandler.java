@@ -1,4 +1,4 @@
-package org.plugin.espressif.market.handlers;
+package org.plugin.espressif.catalog.handlers;
 
 import org.eclipse.core.commands.AbstractHandler;
 import org.eclipse.core.commands.ExecutionEvent;
