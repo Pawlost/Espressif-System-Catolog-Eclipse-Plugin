@@ -13,6 +13,7 @@ import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Text;
+import org.plugin.espressif.catalog.ItemType;
 
 public class AddItemDialog extends Dialog {
 
@@ -33,7 +34,6 @@ public class AddItemDialog extends Dialog {
 		Label nameLabel = new Label(container, SWT.RIGHT);
 		nameLabel.setText("Name:");
 		
-		
 		name = new Text(container, SWT.SINGLE);
 		name.setLayoutData(new GridData(125, 25));
 		
@@ -41,9 +41,16 @@ public class AddItemDialog extends Dialog {
 		typeLabel.setText("Type:");
 		
 		Combo combo = new Combo(container, SWT.READ_ONLY | SWT.BORDER);
-		combo.setItems(new String[]{"Kokot", "Curak"});
-		combo.select(0);
 		
+		String[] itemNames = new String[ItemType.values().length];
+		
+		for(int i = 0; i < itemNames.length; i++) {
+			itemNames[i] = ItemType.values()[i].getName();
+		}
+	
+		combo.setItems(itemNames);
+		
+		combo.select(0);
 		Label descriptionLabel = new Label(container, SWT.RIGHT);
 		descriptionLabel.setText("Description:");
 		
@@ -78,7 +85,6 @@ public class AddItemDialog extends Dialog {
 	@Override
 	protected Control createButtonBar(Composite parent)
 	{
-	    /* You don't want a button bar, so just return null */
 	    return null;
 	}
 }
