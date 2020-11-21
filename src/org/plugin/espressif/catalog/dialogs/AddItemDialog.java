@@ -13,78 +13,83 @@ import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Text;
+import org.plugin.espressif.catalog.Item;
 import org.plugin.espressif.catalog.ItemType;
+import org.plugin.espressif.catalog.JSONFileManager;
 
 public class AddItemDialog extends Dialog {
 
-	private Text name;
-	private Text description;
-	
-	public AddItemDialog(Shell parentShell) {
-		super(parentShell);
-		setShellStyle(getShellStyle());
-	}
+    private Text name;
+    private Combo type;
+    private Text description;
+    private JSONFileManager manager;
 
-	@Override
-	protected Control createDialogArea(Composite parent) {
-		Composite container = (Composite) super.createDialogArea(parent);
-		container.setLayout(new GridLayout(2, false));
-		container.setLayoutData(new GridData(300, 300));
+    public AddItemDialog(Shell parentShell, JSONFileManager manager) {
+        super(parentShell);
+        setShellStyle(getShellStyle());
+        this.manager = manager;
+    }
 
-		Label nameLabel = new Label(container, SWT.RIGHT);
-		nameLabel.setText("Name:");
-		
-		name = new Text(container, SWT.SINGLE);
-		name.setLayoutData(new GridData(125, 25));
-		
-		Label typeLabel = new Label(container, SWT.RIGHT);
-		typeLabel.setText("Type:");
-		
-		Combo combo = new Combo(container, SWT.READ_ONLY | SWT.BORDER);
-		
-		String[] itemNames = new String[ItemType.values().length];
-		
-		for(int i = 0; i < itemNames.length; i++) {
-			itemNames[i] = ItemType.values()[i].getName();
-		}
-	
-		combo.setItems(itemNames);
-		
-		combo.select(0);
-		Label descriptionLabel = new Label(container, SWT.RIGHT);
-		descriptionLabel.setText("Description:");
-		
-		description = new Text(container, SWT.MULTI);
-		description.setLayoutData(new GridData(150, 150));
-				
-		Button button = new Button(container, SWT.PUSH);
-		GridData data = new GridData(100, 25);
-		data.horizontalSpan = 2;
-		data.verticalAlignment = SWT.CENTER;
-		data.horizontalAlignment = SWT.CENTER;
-		button.setLayoutData(data);
-		button.setText("Submit");
-		
-		button.addSelectionListener(new SelectionAdapter() {
-			@Override
-			public void widgetSelected(SelectionEvent e) {
-				System.out.println("Pressed");
-			}
-		});
-		
+    @Override
+    protected Control createDialogArea(Composite parent) {
+        Composite container = (Composite) super.createDialogArea(parent);
+        container.setLayout(new GridLayout(2, false));
+        container.setLayoutData(new GridData(300, 300));
 
-		return container;
-	}
+        Label nameLabel = new Label(container, SWT.RIGHT);
+        nameLabel.setText("Name:");
 
-	@Override
-	protected void configureShell(Shell newShell) {
-		super.configureShell(newShell);
-		newShell.setText("Add Espressif Item");
-	}
-	
-	@Override
-	protected Control createButtonBar(Composite parent)
-	{
-	    return null;
-	}
+        name = new Text(container, SWT.SINGLE);
+        name.setLayoutData(new GridData(125, 25));
+
+        Label typeLabel = new Label(container, SWT.RIGHT);
+        typeLabel.setText("Type:");
+
+        type = new Combo(container, SWT.READ_ONLY | SWT.BORDER);
+
+        String[] itemNames = new String[ItemType.values().length];
+
+        for (int i = 0; i < itemNames.length; i++) {
+            itemNames[i] = ItemType.values()[i].name();
+        }
+
+        type.setItems(itemNames);
+
+        type.select(0);
+        Label descriptionLabel = new Label(container, SWT.RIGHT);
+        descriptionLabel.setText("Description:");
+
+        description = new Text(container, SWT.MULTI);
+        description.setLayoutData(new GridData(150, 150));
+
+        Button button = new Button(container, SWT.PUSH);
+        GridData data = new GridData(100, 25);
+        data.horizontalSpan = 2;
+        data.verticalAlignment = SWT.CENTER;
+        data.horizontalAlignment = SWT.CENTER;
+        button.setLayoutData(data);
+        button.setText("Submit");
+
+        button.addSelectionListener(new SelectionAdapter() {
+            @Override
+            public void widgetSelected(SelectionEvent e) {
+            	Item item = new Item(name.getText(), ItemType.valueOf(type.getText()), description.getText());
+                manager.addItem(item);
+            }
+        });
+
+
+        return container;
+    }
+
+    @Override
+    protected void configureShell(Shell newShell) {
+        super.configureShell(newShell);
+        newShell.setText("Add Espressif Item");
+    }
+
+    @Override
+    protected Control createButtonBar(Composite parent) {
+        return null;
+    }
 }
