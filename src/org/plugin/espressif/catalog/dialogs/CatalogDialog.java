@@ -10,6 +10,8 @@ import org.eclipse.jface.viewers.ColumnLabelProvider;
 import org.eclipse.jface.viewers.TableViewer;
 import org.eclipse.jface.viewers.TableViewerColumn;
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.events.DisposeEvent;
+import org.eclipse.swt.events.DisposeListener;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.layout.GridData;
@@ -21,6 +23,7 @@ import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.Text;
+import org.json.simple.parser.ParseException;
 import org.plugin.espressif.catalog.Item;
 import org.plugin.espressif.catalog.JSONFileManager;
 
@@ -29,17 +32,37 @@ import java.util.List;
 public class CatalogDialog extends Dialog {
 
     private List<Item> items;
-
     private Label label;
+    private JSONFileManager manager;
 
-    public CatalogDialog(Shell parentShell, JSONFileManager manager) {
+    public CatalogDialog(Shell parentShell) throws IOException, ParseException {
         super(parentShell);
+        manager = new JSONFileManager();
         items = manager.loadItemList();
     }
 
     @Override
     protected Control createDialogArea(Composite parent) {
         Composite container = (Composite) super.createDialogArea(parent);
+        createDialog(container);
+
+        container.addDisposeListener(
+                new DisposeListener() {
+                    @Override
+                    public void widgetDisposed(DisposeEvent e) {
+                        try {
+                            manager.save();
+                        } catch (IOException e1) {
+                            // TODO Auto-generated catch block
+                            e1.printStackTrace();
+                        }
+                    }
+                });
+
+        return container;
+    }
+
+    private void createDialog(Composite container) {
         container.setLayout(new GridLayout(3, false));
         container.setLayoutData(new GridData(500, 300));
 
@@ -77,8 +100,6 @@ public class CatalogDialog extends Dialog {
 
         viewer.setContentProvider(new ArrayContentProvider());
         viewer.setInput(items);
-
-        return container;
     }
 
     // overriding this methods allows you to set the

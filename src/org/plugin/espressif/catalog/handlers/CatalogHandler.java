@@ -19,22 +19,7 @@ public class CatalogHandler extends AbstractHandler {
     public Object execute(ExecutionEvent event) throws ExecutionException {
         try {
             Shell shell = HandlerUtil.getActiveWorkbenchWindowChecked(event).getShell();
-            JSONFileManager manager = new JSONFileManager();
-            CatalogDialog catalogDialog = new CatalogDialog(shell, manager);
-
-            shell.addDisposeListener(
-                    new DisposeListener() {
-                        @Override
-                        public void widgetDisposed(DisposeEvent e) {
-                        	try {
-								manager.save();
-							} catch (IOException e1) {
-								// TODO Auto-generated catch block
-								e1.printStackTrace();
-							}
-                        }
-                    });
-
+            CatalogDialog catalogDialog = new CatalogDialog(shell);
             catalogDialog.open();
         } catch (IOException | ParseException e) {
             // TODO Auto-generated catch block

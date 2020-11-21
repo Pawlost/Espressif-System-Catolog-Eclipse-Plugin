@@ -19,7 +19,7 @@ import org.json.simple.parser.ParseException;
 public class JSONFileManager {
 
     public static final String CATALOG_FILE = "catalog.json";
-    
+
     private static final String nameSave = "name";
     private static final String typeSave = "type";
     private static final String descriptionSave = "description";
@@ -32,41 +32,43 @@ public class JSONFileManager {
 
         if (!file.exists()) {
             file.createNewFile();
+        } else if (file.length() > 0) {
+            JSONParser parser = new JSONParser();
+            FileReader reader = new FileReader(file);
+            data = (JSONArray) parser.parse(reader);
+            reader.close();
+        } else {
+            data = new JSONArray();
         }
-        
-        JSONParser parser = new JSONParser();
-        FileReader reader = new FileReader(file);
-        data = (JSONArray) parser.parse(reader);
-        reader.close();
-        
+
         writer = new FileWriter(file);
     }
 
     public void addItem(Item item) {
         JSONObject jsonObject = new JSONObject();
         jsonObject.put(nameSave, item.getName());
-        jsonObject.put(typeSave, item.getType().name();
+        jsonObject.put(typeSave, item.getType().name());
         jsonObject.put(descriptionSave, item.getDescription());
         data.add(jsonObject);
     }
-    
+
     public void save() throws IOException {
         writer.write(data.toJSONString());
         writer.close();
     }
 
     public List<Item> loadItemList() {
-    	List<Item> items = new ArrayList<Item>();
-    	
-    	Iterator<JSONObject> iterator = data.iterator();
-    	
-    	while (iterator.hasNext()) {
-			JSONObject jsonObject = iterator.next();
-			Item item = new Item((String) jsonObject.get(nameSave), ItemType.valueOf((String)jsonObject.get(typeSave)),
-					(String) jsonObject.get(descriptionSave));
-			items.add(item);
-		}
-    	
-    	return items;
+        List<Item> items = new ArrayList<Item>();
+
+        Iterator<JSONObject> iterator = data.iterator();
+
+        while (iterator.hasNext()) {
+            JSONObject jsonObject = iterator.next();
+            Item item = new Item((String) jsonObject.get(nameSave), ItemType.valueOf((String) jsonObject.get(typeSave)),
+                    (String) jsonObject.get(descriptionSave));
+            items.add(item);
+        }
+
+        return items;
     }
 }

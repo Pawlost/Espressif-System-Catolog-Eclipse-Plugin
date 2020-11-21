@@ -1,7 +1,11 @@
 package org.plugin.espressif.catalog.dialogs;
 
+import java.io.IOException;
+
 import org.eclipse.jface.dialogs.Dialog;
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.events.DisposeEvent;
+import org.eclipse.swt.events.DisposeListener;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.layout.GridData;
@@ -13,6 +17,7 @@ import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Text;
+import org.json.simple.parser.ParseException;
 import org.plugin.espressif.catalog.Item;
 import org.plugin.espressif.catalog.ItemType;
 import org.plugin.espressif.catalog.JSONFileManager;
@@ -24,15 +29,37 @@ public class AddItemDialog extends Dialog {
     private Text description;
     private JSONFileManager manager;
 
-    public AddItemDialog(Shell parentShell, JSONFileManager manager) {
+    public AddItemDialog(Shell parentShell) throws IOException, ParseException {
         super(parentShell);
         setShellStyle(getShellStyle());
-        this.manager = manager;
+        manager = new JSONFileManager();
     }
 
     @Override
     protected Control createDialogArea(Composite parent) {
+
         Composite container = (Composite) super.createDialogArea(parent);
+
+        createDialog(container);
+
+        container.addDisposeListener(
+                new DisposeListener() {
+                    @Override
+                    public void widgetDisposed(DisposeEvent e) {
+                        try {
+                            manager.save();
+                        } catch (IOException e1) {
+                            // TODO Auto-generated catch block
+                            e1.printStackTrace();
+                        }
+                    }
+                });
+
+
+        return container;
+    }
+
+    private void createDialog(Composite container) {
         container.setLayout(new GridLayout(2, false));
         container.setLayoutData(new GridData(300, 300));
 
@@ -73,13 +100,10 @@ public class AddItemDialog extends Dialog {
         button.addSelectionListener(new SelectionAdapter() {
             @Override
             public void widgetSelected(SelectionEvent e) {
-            	Item item = new Item(name.getText(), ItemType.valueOf(type.getText()), description.getText());
+                Item item = new Item(name.getText(), ItemType.valueOf(type.getText()), description.getText());
                 manager.addItem(item);
             }
         });
-
-
-        return container;
     }
 
     @Override
