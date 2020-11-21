@@ -5,6 +5,7 @@ import org.eclipse.core.commands.ExecutionEvent;
 import org.eclipse.core.commands.ExecutionException;
 import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.handlers.HandlerUtil;
+import org.plugin.espressif.catalog.JSONFileManager;
 import org.plugin.espressif.catalog.dialogs.CatalogDialog;
 
 public class CatalogHandler extends AbstractHandler {

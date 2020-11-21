@@ -54,3 +54,4 @@ local.properties
 #JetBrains
 .idea/
 /bin/
+*.iml

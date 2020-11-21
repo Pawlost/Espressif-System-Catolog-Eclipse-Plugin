@@ -22,25 +22,29 @@ import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.Text;
 import org.plugin.espressif.catalog.Item;
 import org.plugin.espressif.catalog.ItemType;
+import org.plugin.espressif.catalog.JSONFileManager;
+
 import java.util.List;
 
 public class CatalogDialog extends Dialog {
 	
 	private List<Item> items;
+	
+	private Label label;
 
 	public CatalogDialog(Shell parentShell) {
 		super(parentShell);
 		items = new ArrayList<Item>();
 		items.add(new Item("gdsadg", ItemType.DevKit, "gfdsagds"));
-	}
+			}
 
 	@Override
 	protected Control createDialogArea(Composite parent) {
 		Composite container = (Composite) super.createDialogArea(parent);
 		container.setLayout(new GridLayout(3, false));
 		container.setLayoutData(new GridData(500, 300));
-		
-		Label label = new Label(container, SWT.LEFT);
+				
+		label = new Label(container, SWT.LEFT);
 		label.setText("Search by name: ");
 		
 		Text text = new Text(container, SWT.SINGLE);

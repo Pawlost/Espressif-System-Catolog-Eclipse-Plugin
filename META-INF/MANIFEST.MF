@@ -6,3 +6,5 @@ Bundle-Version: 1.0.0.qualifier
 Require-Bundle: org.eclipse.ui
 Automatic-Module-Name: org.plugin.espressif.catalog
 Bundle-RequiredExecutionEnvironment: JavaSE-14
+Bundle-ClassPath: libraries/json-simple-1.1.1.jar,
+ .
