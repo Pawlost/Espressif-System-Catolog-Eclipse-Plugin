@@ -9,6 +9,8 @@ import org.eclipse.jface.viewers.ArrayContentProvider;
 import org.eclipse.jface.viewers.ColumnLabelProvider;
 import org.eclipse.jface.viewers.TableViewer;
 import org.eclipse.jface.viewers.TableViewerColumn;
+import org.eclipse.jface.viewers.Viewer;
+import org.eclipse.jface.viewers.ViewerFilter;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.DisposeEvent;
 import org.eclipse.swt.events.DisposeListener;
@@ -26,12 +28,15 @@ import org.eclipse.swt.widgets.Text;
 import org.json.simple.parser.ParseException;
 import org.plugin.espressif.catalog.Item;
 import org.plugin.espressif.catalog.JSONFileManager;
+import org.plugin.espressif.catalog.TableFilter;
 
 import java.util.List;
+import java.util.regex.Pattern;
 
 public class CatalogDialog extends Dialog {
 
     private List<Item> items;
+    private Text search;
     private Label label;
     private JSONFileManager manager;
 
@@ -53,7 +58,6 @@ public class CatalogDialog extends Dialog {
                         try {
                             manager.save();
                         } catch (IOException e1) {
-                            // TODO Auto-generated catch block
                             e1.printStackTrace();
                         }
                     }
@@ -69,17 +73,10 @@ public class CatalogDialog extends Dialog {
         label = new Label(container, SWT.LEFT);
         label.setText("Search by name: ");
 
-        Text text = new Text(container, SWT.SINGLE);
+        search = new Text(container, SWT.SINGLE);
 
         Button button = new Button(container, SWT.PUSH);
         button.setText("Go");
-
-        button.addSelectionListener(new SelectionAdapter() {
-            @Override
-            public void widgetSelected(SelectionEvent e) {
-                System.out.println("Pressed");
-            }
-        });
 
         GridData data = new GridData();
         data.horizontalSpan = 4;
@@ -100,6 +97,15 @@ public class CatalogDialog extends Dialog {
 
         viewer.setContentProvider(new ArrayContentProvider());
         viewer.setInput(items);
+        
+    	viewer.addFilter(new TableFilter(search));
+        
+        button.addSelectionListener(new SelectionAdapter() {
+            @Override
+            public void widgetSelected(SelectionEvent e) {
+            	viewer.refresh();
+            }
+        });
     }
 
     // overriding this methods allows you to set the
@@ -148,7 +154,6 @@ public class CatalogDialog extends Dialog {
 
     @Override
     protected Control createButtonBar(Composite parent) {
-        /* You don't want a button bar, so just return null */
         return null;
     }
 }

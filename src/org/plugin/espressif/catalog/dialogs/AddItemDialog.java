@@ -49,11 +49,10 @@ public class AddItemDialog extends Dialog {
                         try {
                             manager.save();
                         } catch (IOException e1) {
-                            // TODO Auto-generated catch block
                             e1.printStackTrace();
                         }
                     }
-                });
+        });
 
 
         return container;
