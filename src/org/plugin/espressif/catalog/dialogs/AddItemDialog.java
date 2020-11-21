@@ -3,6 +3,7 @@ package org.plugin.espressif.catalog.dialogs;
 import java.io.IOException;
 
 import org.eclipse.jface.dialogs.Dialog;
+import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.DisposeEvent;
 import org.eclipse.swt.events.DisposeListener;
@@ -67,6 +68,7 @@ public class AddItemDialog extends Dialog {
 
         name = new Text(container, SWT.SINGLE);
         name.setLayoutData(new GridData(125, 25));
+        name.setTextLimit(100);
 
         Label typeLabel = new Label(container, SWT.RIGHT);
         typeLabel.setText("Type:");
@@ -77,7 +79,7 @@ public class AddItemDialog extends Dialog {
 
         for (int i = 0; i < itemNames.length; i++) {
             itemNames[i] = ItemType.values()[i].name();
-        }
+        }     
 
         type.setItems(itemNames);
 
@@ -87,6 +89,7 @@ public class AddItemDialog extends Dialog {
 
         description = new Text(container, SWT.MULTI);
         description.setLayoutData(new GridData(150, 150));
+        description.setTextLimit(300);
 
         Button button = new Button(container, SWT.PUSH);
         GridData data = new GridData(100, 25);
@@ -100,7 +103,11 @@ public class AddItemDialog extends Dialog {
             @Override
             public void widgetSelected(SelectionEvent e) {
                 Item item = new Item(name.getText(), ItemType.valueOf(type.getText()), description.getText());
+                name.setText("");
+                description.setText("");
+                type.select(0);
                 manager.addItem(item);
+                MessageDialog.openConfirm(getShell(), "Item Added", "Item succesfuly added");
             }
         });
     }
