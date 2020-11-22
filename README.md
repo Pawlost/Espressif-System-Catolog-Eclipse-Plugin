@@ -21,7 +21,12 @@ The products are customer made and are persistently saved in JSON files.
 
 ## Prerequisites
 Please install:
+* JAVA SE 14
+You can install Java SE 14 using one of 2 options:
+    *  Download Java JDK 14 from [AdoptOpenJDK](https://adoptopenjdk.net/)
+    *  Select JRE 14.0.2 http://download.eclipse.org/justj/jres/14/updates/release/14.0.2 in Java 11+ VM when installing Eclipse
 * [Eclipse](https://www.eclipse.org/downloads/)
+    * Install *Eclipse IDE for Java Developers* 
 * [Git](https://git-scm.com/downloads)
 
 ### Tools Preparation
@@ -38,10 +43,16 @@ If your eclipse does not have **Eclipse PDE (Plug-in Development Environment) pl
 ## Contribution
 If you wish to contribute to this project, please make sure, you meet all prerequisites.
 
-First clone this project from github by copyiing this command to a console.
+1)  First clone this project from github by copyiing this command to a console.
 ```
 git clone git@github.com:Pawlost/Espressif-Systems-Catolog-Eclipse-Plugin.git
 ```
+2) Open Eclipse
+3) *File* -> *Open Projects from File System...*
+4) *Directory...* -> open your cloned repository -> *Select Folder*
+5) *Finish* and wait for the repository to open
+
+
 ### Export project
 ## Export installation
 ## Usage
