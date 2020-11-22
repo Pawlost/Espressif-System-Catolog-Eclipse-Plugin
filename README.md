@@ -55,9 +55,7 @@ git clone git@github.com:Pawlost/Espressif-Systems-Catolog-Eclipse-Plugin.git
 3) *File* -> *Open Projects from File System...*
 4) *Directory...* -> open your cloned repository -> *Select Folder*
 5) *Finish* and wait for the repository to open
-6) Right click in project explorer on main folder -> *Build Path* -> *Configure Build Path...*
-![Build Path](https://github.com/Pawlost/Espressif-Systems-Catolog-Eclipse-Plugin/blob/main/screenshots/buildpath.png)
-7) *Libraries* -> Select *Classpath* -> *Add JARs* -> *Espressif Systems Catalog Eclipse Plugin* -> *libraries* -> *json-simple-1.1.1.jar* -> *OK* -> *Apply and close*
+6) Right click in project explorer on main folder -> *Plug-in Tools* -> *Update Classpath...*
 8) Now you can contribute
 
 ### Test Plugin
