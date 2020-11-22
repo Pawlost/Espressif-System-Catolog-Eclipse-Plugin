@@ -87,7 +87,7 @@ public class AddItemDialog extends Dialog {
         Label descriptionLabel = new Label(container, SWT.RIGHT);
         descriptionLabel.setText("Description:");
 
-        description = new Text(container, SWT.MULTI);
+        description = new Text(container, SWT.MULTI | SWT.WRAP);
         description.setLayoutData(new GridData(150, 150));
         description.setTextLimit(300);
 

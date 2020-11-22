@@ -36,7 +36,7 @@
             locationURI="menu:org.eclipse.ui.main.menu?after=additions">
          <menu
                id="org.plugin.espressif.catalog.menus.catalogMenu"
-               label="Espressif Catalog Menu"
+               label="Espressif Catalog"
                mnemonic="M">
             <command
                     commandId="org.plugin.espressif.catalog.commands.addItemCommand"
