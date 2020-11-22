@@ -1,16 +1,18 @@
 package org.plugin.espressif.catalog;
 
-import java.io.File;
-import java.io.FileReader;
-import java.io.FileWriter;
+import java.io.BufferedReader;
+import java.io.ByteArrayInputStream;
 import java.io.IOException;
-import java.io.PrintWriter;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Iterator;
-import java.util.LinkedHashMap;
 import java.util.List;
-import java.util.Map;
 
+import org.eclipse.core.resources.IFile;
+import org.eclipse.core.resources.IResource;
+import org.eclipse.core.resources.ResourcesPlugin;
+import org.eclipse.core.runtime.CoreException;
+import org.eclipse.core.runtime.Path;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -25,23 +27,33 @@ public class JSONFileManager {
     private static final String descriptionSave = "description";
     private JSONArray data;
 
-    private FileWriter writer;
+    private IFile file;
 
-    public JSONFileManager() throws IOException, ParseException {
-        File file = new File(CATALOG_FILE);
-
+    public JSONFileManager() throws IOException, ParseException, CoreException {
+        Path path = new Path(CATALOG_FILE);
+        file = ResourcesPlugin.getWorkspace().getRoot().getFileForLocation(path);
+       
         if (!file.exists()) {
-            file.createNewFile();
-        } else if (file.length() > 0) {
-            JSONParser parser = new JSONParser();
-            FileReader reader = new FileReader(file);
-            data = (JSONArray) parser.parse(reader);
-            reader.close();
+            file.create(new ByteArrayInputStream("".getBytes()), IResource.NONE, null);;
         } else {
-            data = new JSONArray();
+        	
+            InputStreamReader isReader = new InputStreamReader(file.getContents());
+            //Creating a BufferedReader object
+            BufferedReader reader = new BufferedReader(isReader);
+            StringBuffer sb = new StringBuffer();
+            String str;
+            while((str = reader.readLine())!= null){
+               sb.append(str);
+            }
+        	
+        	if (file.getContents().available() > 0) {
+            JSONParser parser = new JSONParser();
+            data = (JSONArray) parser.parse(sb.toString());
+            reader.close();
+        	} else {
+        		data = new JSONArray();
+        	}
         }
-
-        writer = new FileWriter(file);
     }
 
     public void addItem(Item item) {
@@ -52,9 +64,9 @@ public class JSONFileManager {
         data.add(jsonObject);
     }
 
-    public void save() throws IOException {
-        writer.write(data.toJSONString());
-        writer.close();
+    public void save() throws IOException, CoreException {
+    	ByteArrayInputStream stream  = new ByteArrayInputStream(data.toJSONString().getBytes());
+    	file.setContents(stream, IResource.NONE, null);
     }
 
     public List<Item> loadItemList() {

@@ -2,6 +2,7 @@ package org.plugin.espressif.catalog.dialogs;
 
 import java.io.IOException;
 
+import org.eclipse.core.runtime.CoreException;
 import org.eclipse.jface.dialogs.Dialog;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.swt.SWT;
@@ -30,7 +31,7 @@ public class AddItemDialog extends Dialog {
     private Text description;
     private JSONFileManager manager;
 
-    public AddItemDialog(Shell parentShell) throws IOException, ParseException {
+    public AddItemDialog(Shell parentShell) throws IOException, ParseException, CoreException {
         super(parentShell);
         setShellStyle(getShellStyle());
         manager = new JSONFileManager();
@@ -49,7 +50,7 @@ public class AddItemDialog extends Dialog {
                     public void widgetDisposed(DisposeEvent e) {
                         try {
                             manager.save();
-                        } catch (IOException e1) {
+                        } catch (IOException | CoreException e1) {
                             e1.printStackTrace();
                         }
                     }

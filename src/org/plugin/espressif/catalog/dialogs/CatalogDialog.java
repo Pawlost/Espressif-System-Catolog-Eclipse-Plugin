@@ -3,6 +3,7 @@ package org.plugin.espressif.catalog.dialogs;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import org.eclipse.core.runtime.CoreException;
 import org.eclipse.jface.dialogs.Dialog;
 import org.eclipse.jface.layout.TableColumnLayout;
 import org.eclipse.jface.viewers.ArrayContentProvider;
@@ -40,7 +41,7 @@ public class CatalogDialog extends Dialog {
     private Label label;
     private JSONFileManager manager;
 
-    public CatalogDialog(Shell parentShell) throws IOException, ParseException {
+    public CatalogDialog(Shell parentShell) throws IOException, ParseException, CoreException {
         super(parentShell);
         manager = new JSONFileManager();
         items = manager.loadItemList();
@@ -57,7 +58,7 @@ public class CatalogDialog extends Dialog {
                     public void widgetDisposed(DisposeEvent e) {
                         try {
                             manager.save();
-                        } catch (IOException e1) {
+                        } catch (IOException | CoreException e1) {
                             e1.printStackTrace();
                         }
                     }
