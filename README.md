@@ -56,6 +56,7 @@ git clone git@github.com:Pawlost/Espressif-Systems-Catolog-Eclipse-Plugin.git
 4) *Directory...* -> open your cloned repository -> *Select Folder*
 5) *Finish* and wait for the repository to open
 6) Right click in project explorer on main folder -> *Build Path* -> *Configure Build Path...*
+![Build Path](https://github.com/Pawlost/Espressif-Systems-Catolog-Eclipse-Plugin/blob/main/screenshots/buildpath.png)
 7) *Libraries* -> Select *Classpath* -> *Add JARs* -> *Espressif Systems Catalog Eclipse Plugin* -> *libraries* -> *json-simple-1.1.1.jar* -> *OK* -> *Apply and close*
 8) Now you can contribute
 
@@ -68,7 +69,11 @@ If you wish to test your changes follow next steps:
 ## Usage
 This plugin adds special menu *Espressif Catalog* to the Eclipse toolbar.
 Selecting this menu gives user two options
+
+![Menu](https://github.com/Pawlost/Espressif-Systems-Catolog-Eclipse-Plugin/blob/main/screenshots/catalogMenu.png)
+
 *  *Add Espressif Item*
+![Add Item](https://github.com/Pawlost/Espressif-Systems-Catolog-Eclipse-Plugin/blob/main/screenshots/addItem.PNG)
 
 This option creates a new window, where you can specify name, type and description of a new Espressif item.
 
@@ -77,13 +82,18 @@ After you specified all neccessary information, you can click submit and new ite
 * *Browse Espressif Catalog*
 
 This option creates new dialog where you can search for specific Espressif item added before. It also shows all currently saved Espressif items.
+![Catalog](https://github.com/Pawlost/Espressif-Systems-Catolog-Eclipse-Plugin/blob/main/screenshots/Catalog.PNG)
 
 To search simply type name of product you are looking for and press *Go*.
 Be aware that searching is case sensitive!
+![Searching](https://github.com/Pawlost/Espressif-Systems-Catolog-Eclipse-Plugin/blob/main/screenshots/Searching.PNG)
 
 ## Export plugin
 To use finished plugin you can either download build from [github](https://github.com/Pawlost/Espressif-Systems-Catolog-Eclipse-Plugin/releases) or follow these steps:
 1) Right click on main folder *Espressif Systems Catalog Eclipse Plugin* in *Package Explorer* -> *Export...*
+
+![Export](https://github.com/Pawlost/Espressif-Systems-Catolog-Eclipse-Plugin/blob/main/screenshots/export.png)
+
 2) *Plug-in Development* -> *Deplayable plug-ins and fragments*
 3) By clicking *Directory* select folder for plugin output
     * Optionaly if you wish to skip plugin installation as a destination select *Install into host* option
