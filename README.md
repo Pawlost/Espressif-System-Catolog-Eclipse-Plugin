@@ -1,5 +1,6 @@
 # Espressif Systems Catalog Eclipse Plugin
 Espressif Systems Catalog Eclipse Plugin is an assignment from Espressif Systems company. 
+This project has not sufficient quality for the company.
 
 ## Table of Contents
 * [Goal](#goal)
@@ -49,7 +50,7 @@ If you wish to contribute to this project, please make sure, you meet all prereq
 
 1)  First clone this project from github by copyiing this command to a console.
 ```
-git clone git@github.com:Pawlost/Espressif-Systems-Catolog-Eclipse-Plugin.git
+git clone https://github.com/Pawlost/Espressif-Systems-Catolog-Eclipse-Plugin.git
 ```
 2) Open Eclipse
 3) *File* -> *Open Projects from File System...*
